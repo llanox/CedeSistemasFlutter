@@ -1,3 +1,4 @@
+import 'package:app_cedesistemas/data/model/Country.dart';
 import 'package:app_cedesistemas/data/repositories/CountryRepository.dart';
 import 'package:app_cedesistemas/data/repositories/CountryRepositoryImpl.dart';
 import 'package:app_cedesistemas/data/repositories/SharedPreferencesTxRepository.dart';
@@ -16,36 +17,46 @@ class LatamAInfoAppStatefulWidget extends StatefulWidget {
 class LatamAInfoApp extends State<LatamAInfoAppStatefulWidget> {
   int _selectedIndex = 0;
   String _lastUpdate = '';
+  List<Country> _countries = List<Country>.empty();
   CountryRepository _countryRepository = CountryRepositoryImpl();
   TransactionRepository transactionRepository = SharePreferencesTxRepository();
 
+  @override
+  void initState() {
+    super.initState();
+    _countryRepository.getAll().then((countries) => {
+          setState(() {
+            _countries = countries;
+          })
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('$_lastUpdate'),
+          title: Text('Countries'),
           backgroundColor: Colors.lightGreen,
         ),
         body: ListView.builder(
-          itemCount: _countryRepository.getAll().length,
+          itemCount: _countries.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
                 leading: Image.network(
-                  'https://www.countryflags.io/${_countryRepository.getAll()[index].code}/flat/64.png',
+                  'https://www.countryflags.io/${_countries[index].code}/flat/64.png',
                   errorBuilder: (BuildContext context, Object exception,
                       StackTrace? stackTrace) {
                     return const Text('😢');
                   },
                 ),
-                title: Text(_countryRepository.getAll()[index].name),
-                subtitle: Text(_countryRepository.getAll()[index].currencyCode),
+                title: Text(_countries[index].name),
+                subtitle: Text(_countries[index].currencyCode),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(
                           builder: (context) => const CountryDetailsPage(),
                           settings: RouteSettings(
-                            arguments: _countryRepository.getAll()[index],
+                            arguments: _countries[index],
                           )
                       )
                   );
