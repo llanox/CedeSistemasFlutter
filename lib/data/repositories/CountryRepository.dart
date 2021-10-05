@@ -1,3 +1,5 @@
+import 'package:app_cedesistemas/data/model/Country.dart';
+
 abstract class CountryRepository{
-  List getAll();
+  Future<List<Country>> getAll();
 }
