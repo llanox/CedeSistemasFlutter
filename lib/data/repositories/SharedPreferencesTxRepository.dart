@@ -13,7 +13,7 @@ class SharePreferencesTxRepository extends TransactionRepository{
   @override
   Future<String> getLastConversion() async {
     final preferenceInstance = await SharedPreferences.getInstance();
-    return Future<String>.value(preferenceInstance.getString('last-conversion'));
+    return Future<String>.value('${preferenceInstance.getString('last-conversion')}');
   }
 
 
