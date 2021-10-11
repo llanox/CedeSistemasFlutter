@@ -54,7 +54,7 @@ class LatamAInfoApp extends State<LatamAInfoAppStatefulWidget> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(
-                          builder: (context) => const CountryDetailsPage(),
+                          builder: (context) => CountryDetailsPageStatefulWidget(),
                           settings: RouteSettings(
                             arguments: _countries[index],
                           )

@@ -1,8 +1,14 @@
 import 'package:app_cedesistemas/data/model/Country.dart';
 import 'package:flutter/material.dart';
 
-class CountryDetailsPage extends StatelessWidget {
-  const CountryDetailsPage({Key? key}) : super(key: key);
+
+class CountryDetailsPageStatefulWidget extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => CountryDetailsPage();
+}
+
+
+class CountryDetailsPage extends State<CountryDetailsPageStatefulWidget> {
 
   void _onBuyCurrency() {}
 
